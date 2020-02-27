@@ -6,16 +6,18 @@ public class WikiArticleEdits {
     private String title;
     private String revisions;
 
-    public WikiArticleEdits(String title, String revisions) {
+    public WikiArticleEdits(int pageid, String title, String revisions) {
+        this.pageid = pageid;
         this.title = title;
         this.revisions = revisions;
     }
 
     @Override
     public String toString() {
-        return "WikiArticleEdits{" +
-                "article title='" + title + '\'' +
-                ", revisions='" + revisions + '\'' +
+        return "Edits to the Wikipedia article: {" + "\n" +
+                "Page ID:'" + pageid + '\'' + "\n" +
+                "Article Title:'" + title  + '\'' + "\n" +
+                "Revisions:'" + revisions + '\'' +
                 '}';
     }
 

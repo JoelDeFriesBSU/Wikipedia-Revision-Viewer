@@ -20,6 +20,7 @@ public class WikiArticleExporter {
             var pages = query.getAsJsonObject("pages");
             var pageIdUpper = ((Map.Entry<String, JsonElement>) pages.entrySet().toArray()[0]).getValue();
 
+            var pageid = pageIdUpper.getAsJsonObject().getAsJsonPrimitive("pageid").getAsInt();
             var title = pageIdUpper.getAsJsonObject().getAsJsonPrimitive("title").getAsString();
             var revisions = pageIdUpper.getAsJsonObject().getAsJsonArray("revisions");
 
@@ -29,7 +30,12 @@ public class WikiArticleExporter {
                 realRevisions += additive;
                 realRevisions += "\n";
             }
-            return new WikiArticleEdits(title,realRevisions);
+            return new WikiArticleEdits(pageid,title,realRevisions);
+        }else if(json.equals("IOException String (non-json)")){
+            String errorString = "An IOException was found." + "\n" +
+                    "You may not be connected to the internet, or Wikipedia couldn't redirect you to your desired article." + "\n" +
+                    "Please try again." + "\n";
+            return new WikiArticleEdits(-1,null,errorString);
         }else{
             throw new StringIsNotJsonException();
         }
