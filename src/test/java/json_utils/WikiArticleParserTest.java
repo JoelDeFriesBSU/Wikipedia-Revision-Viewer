@@ -15,8 +15,13 @@ class WikiArticleParserTest {
     @Test
     void testJsonImporterIsJsonString() {
         String json = WikiArticleParser.parseWikiArticleToJson("ball");
-        System.out.println(json);
         assertEquals('{',json.charAt(0));
+    }
+
+    @Test
+    void testJsonImporterThrowsIoException() {
+        String json = WikiArticleParser.parseWikiArticleToJson("s s p p o i f f d");
+        assertEquals("IOException String (non-json)",json);
     }
 
 

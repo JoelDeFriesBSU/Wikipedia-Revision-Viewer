@@ -32,6 +32,7 @@ public class WikiArticleExporter {
             }
             return new WikiArticleEdits(pageid,title,realRevisions);
         }else if(json.equals("IOException String (non-json)")){
+            // Displayable error message for IOException.
             String errorString = "An IOException was found." + "\n" +
                     "You may not be connected to the internet, or Wikipedia couldn't redirect you to your desired article." + "\n" +
                     "Please try again." + "\n";
