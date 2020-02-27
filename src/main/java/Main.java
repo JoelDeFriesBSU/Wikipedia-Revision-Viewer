@@ -20,8 +20,7 @@ public class Main {
                 break;
             }else{
                 String wordJson = WikiArticleParser.parseWikiArticleToJson(word);
-                System.out.println(wordJson);
-                JsonArray articleEdits = WikiArticleExporter.exportArticleEditInfo(wordJson);
+                WikiArticleEdits articleEdits = WikiArticleExporter.exportArticleEditInfo(wordJson);
 
                 System.out.println(articleEdits);
             }

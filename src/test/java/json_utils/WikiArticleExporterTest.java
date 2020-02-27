@@ -14,4 +14,6 @@ class WikiArticleExporterTest {
             var p = WikiArticleExporter.exportArticleEditInfo(wrong);
         });
     }
+
+
 }
