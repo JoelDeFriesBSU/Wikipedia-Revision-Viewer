@@ -13,8 +13,8 @@ import java.awt.event.ActionListener;
 public class SwingUIMain extends JFrame implements ActionListener {
 
     JLabel displayLabel;
-    JLabel revisions;
-    JLabel revisions2;
+    JTextArea revisions;
+    JTextArea revisions2;
     JTextField searchText;
 
     public SwingUIMain() {
@@ -28,11 +28,11 @@ public class SwingUIMain extends JFrame implements ActionListener {
         var displayLabelConstraints = new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(20, 20, 20, 20), 0, 0);
         panel.add(displayLabel, displayLabelConstraints);
 
-        revisions = new JLabel("--REVISIONS--");
+        revisions = new JTextArea("--REVISIONS--");
         var revisionConstraints = new GridBagConstraints(1, 0, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(20, 20, 20, 20), 0, 0);
         panel.add(revisions,revisionConstraints);
 
-        revisions2 = new JLabel("Pretend I have an organized table here.");
+        revisions2 = new JTextArea("Pretend I have an organized table here.");
         var revision2Constraints = new GridBagConstraints(2, 0, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(20, 20, 20, 20), 0, 0);
         panel.add(revisions2,revision2Constraints);
 
@@ -42,20 +42,10 @@ public class SwingUIMain extends JFrame implements ActionListener {
 
         JButton button = new JButton("Search");
         var buttonconstraints = new GridBagConstraints(0, 2, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0);
-        button.addActionListener(e -> {
-            String word = searchText.getText();
-            String json = WikiArticleParser.parseWikiArticleToJson(word);
-            try {
-                WikiArticleEdits w = WikiArticleExporter.exportArticleEditInfo(json);
-                revisions.setText(w.toString());
-            } catch (StringIsNotJsonException ex) {
-                ex.printStackTrace();
-            }
-        });
+        button.addActionListener(this);
         panel.add(button, buttonconstraints);
 
-
-        setPreferredSize(new Dimension(1000, 600));
+        setPreferredSize(new Dimension(1400, 800));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         pack();
         setVisible(true);
@@ -67,7 +57,14 @@ public class SwingUIMain extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("EXECUTING SEARCH");
+        String word = searchText.getText();
+        String json = WikiArticleParser.parseWikiArticleToJson(word);
+        try {
+            WikiArticleEdits w = WikiArticleExporter.exportArticleEditInfo(json);
+            revisions.setText(w.toString());
+        } catch (StringIsNotJsonException ex) {
+            ex.printStackTrace();
+        }
     }
 
 }
