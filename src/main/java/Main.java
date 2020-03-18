@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) throws StringIsNotJsonException {
 
         while(true){
-            System.out.println("Type a Wiki article (press 'quitprogram' to quit):");
+            System.out.println("Type a Wiki article (type 'quitprogram' to quit):");
             Scanner s = new Scanner(System.in);
             String word = s.nextLine();
 
